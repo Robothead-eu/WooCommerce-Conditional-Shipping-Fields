@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Conditional Shipping Fields
  * Plugin URI:  https://github.com/robothead/woocommerce-conditional-shipping-fields
  * Description: Streamline checkout by hiding irrelevant address fields based on the chosen shipping method. When a customer selects a parcel machine or pickup point, street address and city fields serve no purpose — this plugin removes them automatically, reducing friction and the chance of abandonment. Configure which fields to hide directly on each shipping method inside WooCommerce shipping zone settings.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Robothead
  * Author URI:  https://robothead.eu
  * License:     GPL-2.0-or-later
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WCSF_VERSION', '1.0.0' );
+define( 'WCSF_VERSION', '1.0.1' );
 define( 'WCSF_FILE', __FILE__ );
 define( 'WCSF_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WCSF_URL', plugin_dir_url( __FILE__ ) );

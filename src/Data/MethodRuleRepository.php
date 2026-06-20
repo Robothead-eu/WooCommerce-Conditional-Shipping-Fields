@@ -50,10 +50,29 @@ final class MethodRuleRepository {
 	/**
 	 * Returns the hidden field keys for a specific rate ID, or an empty array if none are configured.
 	 *
-	 * @param string $rateId  e.g. "eabi_omniva_parcelterminal:3"
+	 * Handles two rate ID formats:
+	 * - Standard zone-based:  "local_pickup:3"              (WooCommerce default)
+	 * - Legacy/plugin-stripped: "eabi_omniva_parcelterminal" (EABI omits the instance suffix)
+	 *
+	 * @param string $rateId  e.g. "local_pickup:3" or "eabi_omniva_parcelterminal"
 	 * @return list<string>
 	 */
 	public function getHiddenFieldsForRate( string $rateId ): array {
-		return $this->getRules()[ $rateId ] ?? [];
+		$rules = $this->getRules();
+
+		// Exact match — covers standard zone-based rate IDs.
+		if ( isset( $rules[ $rateId ] ) ) {
+			return $rules[ $rateId ];
+		}
+
+		// Prefix match — covers plugins that strip the instance suffix from their rate ID.
+		// If multiple instances of the same method exist, the first configured one wins.
+		foreach ( $rules as $key => $hidden ) {
+			if ( strstr( $key, ':', true ) === $rateId ) {
+				return $hidden;
+			}
+		}
+
+		return [];
 	}
 }
